@@ -106,13 +106,12 @@ public class Population {
 
 	/**
 	 *	Reads in the text file and passes in certain data to the City constructor where it will be stored 
-	 *	@param ask  The prompt line
-	 *	@return  	The string input
 	 */
 	public void fillCities()
 	{
 		Scanner inFile = FileUtils.openToRead(DATA_FILE);
-		inFile.useDelimiter("[\t\n]");  
+		inFile.useDelimiter("[\t\n]"); // to make sure every .next has a piece of data
+		// not a whole line, so it can easily be saved within variables. 
 		
 		String token = new String("");	
 		int counter = 0;
@@ -122,10 +121,10 @@ public class Population {
 		int population = 0;
 		while(inFile.hasNext())
 		{
-			token = inFile.next();
-			counter++;
+			token = inFile.next(); // next piece of info
+			counter++; // to track which peice of info is currently being saved
 			
-			
+			// depending on what counter is categorize the read in info
 			if(counter % 4 == 1)
 			{
 				state = token;
@@ -142,15 +141,19 @@ public class Population {
 			{
 			
 				population = Integer.valueOf(token.trim());
-			
+				// pass info saved from line into constructor of new city object
+				// add city object to list
 				City city = new City(name,state,designation, population);
 				cities.add(city);
 			}
 			
 		}
-		inFile.close();
+		inFile.close(); // close file
 	}
 	
+	/**	uses selection sort to sort the population and prints 50
+	 */
+	 
 	public void selectSortPop()
 	{
 		System.out.println("Fifty least populous cities");
@@ -169,6 +172,8 @@ public class Population {
 		System.out.println("\nElapsed Time " + (endMillisec - startMillisec) + " milliseconds");
 	}
 	
+	/**	uses merge sort to sort the population and prints 50
+	 */
 	public void mergeSortPop()
 	{
 		System.out.println("Fifty most populous cities");
@@ -189,6 +194,8 @@ public class Population {
 		
 	}
 	
+	/**	uses merge sort to sort the population of a certain inputed state and prints 50
+	 */
 	public void mostPopByState()
 	{
 		sorter.mergeSort(cities);
@@ -221,6 +228,9 @@ public class Population {
 			}
 		}
 	}
+	
+	/**	uses merge sort to sort the population of a certain city and prints 
+	 */
 	public void cityNamePopSort()
 	{
 		sorter.mergeSort(cities);
@@ -253,7 +263,8 @@ public class Population {
 			}
 		}
 	}
-	
+	/**	uses insertion sort to sort the name of 50 cities and prints 
+	 */
 	public void insertSortName()
 	{
 		System.out.println("Fifty cities sorted by name");
@@ -274,6 +285,8 @@ public class Population {
 		
 	}
 	
+	/**	uses merge sort to sort the name of 50 cities and prints 
+	 */
 	public void mergeSortName()
 	{
 		System.out.println("Fifty cities storted by name descending");
